@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:property-placeholder location="file:${catalina.home}/conf/crm-api/config.properties" />
+			
+	<context:component-scan base-package="br.com.atmdigital.crmapi.*" >
+	
+	</context:component-scan>
+	
+		
+	<tx:annotation-driven />
+
+	<bean id="config" class="org.apache.commons.configuration.PropertiesConfiguration" >
+		<constructor-arg type="java.lang.String" value="config.properties"/>
+    </bean>
+    
+    <bean id="authenticationFilter" class="br.com.atmdigital.crmapi.security.AuthenticationFilter" />
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+
+   <import resource="classpath:db.xml" /> 
+   
+   
+	<!-- <import resource="classpath:quartz-context.xml" />-->
+    
+		
+</beans>
